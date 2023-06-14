@@ -41,5 +41,46 @@ export const Answer = ({ answers, questionId }) => {
     }
   }, [questionId, selected])
 
-  return <div>RESPONSES HERE :V </div>
+  return (
+    <>
+      <ul className="grid grid-cols-2 gap-2 md:grid-cols-4">
+        {answers.map(item => {
+          const isLoading = selected === item && loading
+          const isWrong =
+            selected === item && data && data?.correct !== selected
+          const isCorrect = data?.correct === item
+
+          return (
+            <li key={item}>
+              <button
+                disabled={data || loading}
+                onClick={() => setSelected(item)}
+                className={cn(
+                  'p-2 rounded-md  items-center justify-between w-full flex text-sm font-semibold disabled:cursor-not-allowed transition-all',
+                  isLoading && 'animate-pulse',
+                  isWrong ? 'bg-red-700' : 'bg-slate-800',
+                  isCorrect && 'outline text-green-500',
+                )}
+              >
+                {item}
+                {isCorrect && <FaCheck />}
+                {isWrong && <MdNearbyError />}
+              </button>
+            </li>
+          )
+        })}
+      </ul>
+      {data?.random && (
+        <Link
+          href={`/quiz/${data.random}`}
+          className="flex items-center gap-1 text-blue-400"
+        >
+          <FiRepeat className="mt-1" />
+          Do it again
+        </Link>
+      )}
+    </>
+  )
 }
+
+// Im done with this :,v
