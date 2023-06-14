@@ -22,7 +22,6 @@ export async function getRandomQuizQuestion() {
 
 export default async function Page() {
   const data = await getRandomQuizQuestion()
-
   return (
     <Container
       as="main"
@@ -42,6 +41,7 @@ export default async function Page() {
           sitcom Family Guy. Test your knowledge of the characters, the
           episodes, and the show&apos;s many pop culture references.
         </p>
+
         <Link
           href={`/quiz/${data.randomQuestion}`}
           className="flex items-center justify-center gap-1 px-5 py-4 font-semibold text-orange-500 transition-colors rounded-md outline duration-600 hover:bg-orange-950"

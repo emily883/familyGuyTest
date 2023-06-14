@@ -11,13 +11,26 @@
 import questions from '@/data/quiz.json'
 import { NextResponse } from 'next/server'
 
-export async function GET() {
+export async function GET(req, { params }) {
   try {
-    const random = Math.floor(Math.random() * questions.data.length)
+    const question = questions.data.find(item => item.id === params.id)
+
+    if (!question) {
+      return new NextResponse('no busque q no ta', { status: 404 })
+    }
+
+    const { correct_answer } = question
+
+    const filteredQuestions = questions.data.filter(
+      item => item.id !== params.id,
+    )
+    const random = Math.floor(Math.random() * filteredQuestions.length)
+
     return NextResponse.json({
-      randomQuestion: questions.data[random].id,
+      correct: correct_answer,
+      random: filteredQuestions[random].id,
     })
   } catch (error) {
-    return new NextResponse('Internal Server Error', { status: 500 })
+    return new NextResponse('Error del servidor, SORRY NOT SORRY', { status: 500 })
   }
 }

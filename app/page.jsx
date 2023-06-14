@@ -11,7 +11,6 @@ import Link from 'next/link'
 // import { endpoint } from '@/utils/endpoint'
 import { getAllCharacters } from '@/lib/characters'
 
-
 export default async function Page() {
   const data = await getAllCharacters()
 
@@ -19,6 +18,7 @@ export default async function Page() {
     <main className="flex items-center justify-center h-screen">
       <Container className="grid grid-cols-2 gap-1 py-5 md:grid-cols-3 lg:grid-cols-4">
         {data?.characters?.map(item => {
+          console.log(item)
           return (
             <Link
               href={`/characters/${item.slug}`}

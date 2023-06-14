@@ -17,5 +17,8 @@ import { MdNearbyError } from 'react-icons/md'
 import { FaCheck } from 'react-icons/fa'
 
 export const Answer = ({ answers, questionId }) => {
-  return <div>answers component</div>
+
+  const [selected, setSelected] = useState(null)
+
+  return <div>RESPONSES HERE :V </div>
 }
