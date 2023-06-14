@@ -17,8 +17,29 @@ import { MdNearbyError } from 'react-icons/md'
 import { FaCheck } from 'react-icons/fa'
 
 export const Answer = ({ answers, questionId }) => {
-
   const [selected, setSelected] = useState(null)
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    let subscribed = true
+    if (selected) {
+      setLoading(true)
+      fetch(`/api/quiz/answer/${questionId}`)
+        .then(res => res.json())
+        .then(data => {
+          setLoading(false)
+          if (subscribed) {
+            setData(data)
+          }
+        })
+    }
+
+    return () => {
+      console.log('cancelled!')
+      subscribed = false
+    }
+  }, [questionId, selected])
 
   return <div>RESPONSES HERE :V </div>
 }
